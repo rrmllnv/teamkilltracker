@@ -65,9 +65,20 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
 	local total_kills = 0
 	local players_with_kills = {}
 	
-	-- Собираем игроков с убийствами > 0
+	-- Получаем список текущих игроков в команде
+	local current_players = {}
+	if Managers.player then
+		local players = Managers.player:players()
+		for _, player in pairs(players) do
+			if player and player:name() then
+				current_players[player:name()] = true
+			end
+		end
+	end
+	
+	-- Собираем убийства только текущих игроков с убийствами > 0
 	for player_name, kills in pairs(mod.player_kills or {}) do
-		if kills > 0 then
+		if kills > 0 and current_players[player_name] then
 			total_kills = total_kills + kills
 			table.insert(players_with_kills, {name = player_name, kills = kills})
 		end
