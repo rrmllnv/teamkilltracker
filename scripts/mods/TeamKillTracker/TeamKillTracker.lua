@@ -7,15 +7,12 @@ local hud_elements = {
 		filename = "TeamKillTracker/scripts/mods/TeamKillTracker/HudElementPlayerStats",
 		class_name = "HudElementPlayerStats",
 		visibility_groups = {
-			"tactical_overlay",
 			"alive",
 		},
 	},
 }
 
--- Данные убийств
 mod.player_kills = {}
-mod.is_in_mission = false
 
 for _, hud_element in ipairs(hud_elements) do
 	mod:add_require_path(hud_element.filename)
@@ -38,7 +35,6 @@ mod:hook("UIHud", "init", function(func, self, elements, visibility_groups, para
 	return func(self, elements, visibility_groups, params)
 end)
 
--- Утилиты
 mod._is_in_hub = function()
 	local game_mode_name = Managers.state.game_mode:game_mode_name()
 	return game_mode_name == "hub"
@@ -78,20 +74,25 @@ function mod.on_game_state_changed(status, state_name)
 	end
 end
 
-mod.add_to_killcounter = function()
-	-- Заглушка, будет заменена HUD элементом
+mod.add_to_killcounter = function(player_name)
+	if not player_name then
+		return
+	end
+	
+	if not mod.player_kills[player_name] then
+		mod.player_kills[player_name] = 0
+	end
+	
+	mod.player_kills[player_name] = mod.player_kills[player_name] + 1
 end
 
--- Player from player_unit (модифицированная для всех игроков)
+-- Проверяем всех игроков, а не только локального
 mod.player_from_unit = function(self, unit)
 	if unit then
 		local player_manager = Managers.player
-		if not player_manager then return nil end
-		
-		-- Проверяем всех игроков
 		local players = player_manager:players()
 		for _, player in pairs(players) do
-			if player.player_unit == unit then
+			if player and player.player_unit == unit then
 				return player
 			end
 		end
@@ -110,7 +111,7 @@ function(self, damage_profile, attacked_unit, attacking_unit, attack_direction, 
 		local target_is_minion = breed_or_nil and Breed.is_minion(breed_or_nil)		
 		if target_is_minion then
 			if attack_result == "died" then
-				local player_name = player:name() or "Unknown"
+				local player_name = player:name() or "Player"
 				mod.add_to_killcounter(player_name)
 			end
 		end
