@@ -5,7 +5,7 @@ local UIWorkspaceSettings = require("scripts/settings/ui/ui_workspace_settings")
 local UIHudSettings = require("scripts/settings/ui/ui_hud_settings")
 local UIWidget = require("scripts/managers/ui/ui_widget")
 
-local font_size = 24
+local font_size = 16
 local size = {400, 200}
 
 local scenegraph_definition = {
@@ -13,10 +13,10 @@ local scenegraph_definition = {
 	teamKillContainer = {
 		parent = "screen",
 		scale = "fit",
-		vertical_alignment = "top",
-		horizontal_alignment = "center",
+		vertical_alignment = "bottom",
+		horizontal_alignment = "left",
 		size = size,
-		position = {0, 50, 10},
+		position = {550, -30, 10},
 	},
 }
 
@@ -27,7 +27,7 @@ local teamKillStyle = {
 	font_type = "machine_medium",
 	text_color = {255, 255, 255, 255},
 	size = size,
-	text_horizontal_alignment = "center",
+	text_horizontal_alignment = "left",
 	text_vertical_alignment = "top",
 }
 
@@ -85,8 +85,6 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
 		for _, player in ipairs(players_with_kills) do
 			display_text = display_text .. "\n" .. player.name .. ": " .. player.kills
 		end
-	else
-		display_text = display_text .. "\nNo kills yet"
 	end
 	
 	self._widgets_by_name.teamKillCounter.content.text = display_text
