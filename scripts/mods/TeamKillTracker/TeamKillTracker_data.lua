@@ -11,12 +11,6 @@ return {
 				setting_id = "display_options",
 				type = "group",
 				sub_widgets = {
-					{
-						setting_id = "max_players",
-						type = "numeric",
-						default_value = 4,
-						range = {1, 4},
-					},
 				},
 			}
 		},
