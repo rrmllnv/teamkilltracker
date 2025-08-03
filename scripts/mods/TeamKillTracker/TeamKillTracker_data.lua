@@ -7,12 +7,6 @@ return {
 	allow_rehooking = true,
 	options = {
 		widgets = {
-			{
-				setting_id = "display_options",
-				type = "group",
-				sub_widgets = {
-				},
-			}
 		},
 	},
 }

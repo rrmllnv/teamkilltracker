@@ -7,8 +7,4 @@ return {
 		en = "TeamKillTracker - Shows permanent team kill counter.",
 		ru = "TeamKillTracker - Показывает постоянный счетчик убийств команды.",
 	},
-	display_options = {
-		en = "Display Options",
-		ru = "Настройки отображения",
-	},
 }
