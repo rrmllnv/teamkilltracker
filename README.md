@@ -73,7 +73,12 @@ If you encounter problems:
 3. Restart the game after installation
 
 ## Versions
-1.0.0
+1.0.1
+
+## Changelogs
+- 1.0.1 – added settings to hide the team total line and per-user lines; prevented counter reset on settings change; updated localization.
+- 1.0.0 – first version of the mod
+
 
 ### Current Version
 - Tracking kills for all team players
@@ -166,7 +171,11 @@ PlayerName4: 15
 3. Перезапустите игру после установки
 
 ## Версии
-1.0.0
+1.0.1
+
+## Журнал изменений
+- 1.0.1 — добавлены настройки скрытия строки Team Kills и строк пользователей; предотвращён сброс счётчика при смене настроек; обновлена локализация.
+- 1.0.0 — первая версия мода
 
 ### Текущая версия
 - Отслеживание убийств всех игроков команды

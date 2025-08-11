@@ -7,6 +7,16 @@ return {
 	allow_rehooking = true,
 	options = {
 		widgets = {
-		},
+            {
+                setting_id = "hide_team_kills",
+                type = "checkbox",
+                default_value = false,
+            },
+            {
+                setting_id = "hide_user_kills",
+                type = "checkbox",
+                default_value = false,
+            },
+        },
 	},
 }

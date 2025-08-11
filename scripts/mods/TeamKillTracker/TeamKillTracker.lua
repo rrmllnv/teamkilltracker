@@ -41,7 +41,9 @@ mod._is_in_hub = function()
 end
 
 local function recreate_hud()
-	mod.player_kills = {}
+    mod.player_kills = {}
+    mod.hide_team_kills = mod:get("hide_team_kills")
+    mod.hide_user_kills = mod:get("hide_user_kills")
 end
 
 mod.on_all_mods_loaded = function()
@@ -49,7 +51,8 @@ mod.on_all_mods_loaded = function()
 end
 
 mod.on_setting_changed = function()
-	recreate_hud()
+    mod.hide_team_kills = mod:get("hide_team_kills")
+    mod.hide_user_kills = mod:get("hide_user_kills")
 end
 
 function mod.on_game_state_changed(status, state_name)

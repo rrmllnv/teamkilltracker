@@ -61,6 +61,21 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
 		return
 	end
 	
+    -- Сдвиг по стилю текста, если скрыты строки пользователей, но показывается строка Team Kills
+    do
+        local style = self._widgets_by_name.teamKillCounter.style.text
+        style.offset = style.offset or {0, 0, 0}
+        self._base_offset_y = self._base_offset_y or style.offset[2] or 0
+
+        local line_height = math.floor(font_size * teamKillStyle.line_spacing)
+        local extra_offset_y = 0
+        if not mod.hide_team_kills and mod.hide_user_kills then
+            -- опускаем на 4 строки вниз
+            extra_offset_y = line_height * 4
+        end
+        style.offset[2] = self._base_offset_y + extra_offset_y
+    end
+
 	-- Обновление текста
 	local total_kills = 0
 	local players_with_kills = {}
@@ -89,16 +104,20 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
 		return a.kills > b.kills
 	end)
 	
-	-- Формируем текст
-	local display_text = "TEAM KILLS: " .. total_kills
-	
-	if #players_with_kills > 0 then
-		for _, player in ipairs(players_with_kills) do
-			display_text = display_text .. "\n" .. player.name .. ": " .. player.kills
-		end
-	end
-	
-	self._widgets_by_name.teamKillCounter.content.text = display_text
+    -- Формируем текст с учетом настроек
+    local lines = {}
+    if not mod.hide_team_kills then
+        table.insert(lines, "TEAM KILLS: " .. total_kills)
+    end
+
+    if not mod.hide_user_kills and #players_with_kills > 0 then
+        for _, player in ipairs(players_with_kills) do
+            table.insert(lines, player.name .. ": " .. player.kills)
+        end
+    end
+
+    local display_text = table.concat(lines, "\n")
+    self._widgets_by_name.teamKillCounter.content.text = display_text
 end
 
 return HudElementPlayerStats
