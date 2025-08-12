@@ -82,8 +82,7 @@ If you encounter problems:
 
 
 ### Current Version
-- Tracking kills and damage (HUD shows kills/damage)
-- Tracking kills for all team players
+- Tracking kills and damage for all team players (HUD shows kills/damage)
 - Automatic hiding in hub
 - Sorting by kill count
 - Support for Russian and English localization
@@ -181,8 +180,7 @@ PlayerName4: 15
 - 1.0.0 — первая версия мода
 
 ### Текущая версия
-- Отслеживание убийств и урона (HUD показывает «киллы/урон»)
-- Отслеживание убийств всех игроков команды
+- Отслеживание убийств и урона всех игроков команды (HUD показывает «киллы/урон»)
 - Автоматическое скрытие в хабе
 - Сортировка по количеству убийств
 - Поддержка русской и английской локализации
