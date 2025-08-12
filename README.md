@@ -28,11 +28,11 @@ TeamKillTracker displays a permanent team kill counter in the bottom left corner
 
 The counter displays in format:
 ```
-TEAM KILLS: 125
-PlayerName1: 45
-PlayerName2: 38
-PlayerName3: 27
-PlayerName4: 15
+TEAM KILLS: 125 / 56789
+PlayerName1: 45 / 15432
+PlayerName2: 38 / 12345
+PlayerName3: 27 / 9876
+PlayerName4: 15 / 4321
 ```
 
 **Position**: Bottom left corner of screen  
@@ -127,11 +127,11 @@ TeamKillTracker отображает постоянный счетчик уби�
 
 Счетчик отображается в формате:
 ```
-TEAM KILLS: 125
-PlayerName1: 45
-PlayerName2: 38
-PlayerName3: 27
-PlayerName4: 15
+TEAM KILLS: 125 / 56789
+PlayerName1: 45 / 15432
+PlayerName2: 38 / 12345
+PlayerName3: 27 / 9876
+PlayerName4: 15 / 4321
 ```
 
 **Позиция**: Левый нижний угол экрана  
