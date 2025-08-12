@@ -73,9 +73,10 @@ If you encounter problems:
 3. Restart the game after installation
 
 ## Versions
-1.2.0
+1.3.0
 
 ## Changelogs
+- 1.3.0 – added HUD Counter Mode setting (dropdown: Kills / Damage, Kills only, Damage only).
 - 1.2.0 – added damage tracking and HUD output in "kills/damage" format; switched to account_id keys; prevented double-counting on death events.
 - 1.1.0 – added settings to hide the team total line and per-user lines; prevented counter reset on settings change; updated localization.
 - 1.0.0 – first version of the mod
@@ -172,9 +173,10 @@ PlayerName4: 15 / 4321
 3. Перезапустите игру после установки
 
 ## Версии
-1.2.0
+1.3.0
 
 ## Журнал изменений
+- 1.3.0 — добавлена настройка «Режим счётчика в HUD» (выпадающий список: Убийства / Урон, Только убийства, Только урон).
 - 1.2.0 — добавлен подсчёт урона и вывод в HUD в формате «киллы/урон»; переход на ключи account_id; защита от двойного учёта при смерти.
 - 1.1.0 — добавлены настройки скрытия строки Team Kills и строк пользователей; предотвращён сброс счётчика при смене настроек; обновлена локализация.
 - 1.0.0 — первая версия мода

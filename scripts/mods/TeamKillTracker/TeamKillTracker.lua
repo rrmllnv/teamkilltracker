@@ -50,6 +50,7 @@ local function recreate_hud()
     mod.current_health = {}
     mod.hide_team_kills = mod:get("hide_team_kills")
     mod.hide_user_kills = mod:get("hide_user_kills")
+    mod.hud_counter_mode = mod:get("hud_counter_mode") or 1
 end
 
 mod.on_all_mods_loaded = function()
@@ -59,6 +60,7 @@ end
 mod.on_setting_changed = function()
     mod.hide_team_kills = mod:get("hide_team_kills")
     mod.hide_user_kills = mod:get("hide_user_kills")
+    mod.hud_counter_mode = mod:get("hud_counter_mode") or 1
 end
 
 function mod.on_game_state_changed(status, state_name)

@@ -7,6 +7,16 @@ return {
 	allow_rehooking = true,
 	options = {
 		widgets = {
+			{
+				setting_id = "hud_counter_mode",
+				type = "dropdown",
+				default_value = 1,
+				options = {
+					{text = "hud_counter_mode_kills_damage", value = 1},
+					{text = "hud_counter_mode_kills", value = 2},
+					{text = "hud_counter_mode_damage", value = 3},
+				},
+			},
             {
                 setting_id = "hide_team_kills",
                 type = "checkbox",
