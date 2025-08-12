@@ -76,43 +76,54 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
         style.offset[2] = self._base_offset_y + extra_offset_y
     end
 
-	-- Обновление текста
-	local total_kills = 0
-	local players_with_kills = {}
+    -- Обновление текста
+    local total_kills = 0
+    local total_damage = 0
+    local players_with_kills = {}
 	
 	-- Получаем список текущих игроков в команде
 	local current_players = {}
-	if Managers.player then
-		local players = Managers.player:players()
-		for _, player in pairs(players) do
-			if player and player:name() then
-				current_players[player:name()] = true
-			end
-		end
-	end
+    if Managers.player then
+        local players = Managers.player:players()
+        for _, player in pairs(players) do
+            if player then
+                local account_id = player:account_id() or player:name()
+                if account_id then
+                    current_players[account_id] = player:name() or account_id
+                end
+            end
+        end
+    end
 	
 	-- Собираем убийства только текущих игроков с убийствами > 0
-	for player_name, kills in pairs(mod.player_kills or {}) do
-		if kills > 0 and current_players[player_name] then
-			total_kills = total_kills + kills
-			table.insert(players_with_kills, {name = player_name, kills = kills})
-		end
-	end
+    for account_id, kills in pairs(mod.player_kills or {}) do
+        local display_name = current_players[account_id]
+        if kills > 0 and display_name then
+            total_kills = total_kills + kills
+            local damage = (mod.player_damage and mod.player_damage[account_id]) or 0
+            total_damage = total_damage + math.floor(damage)
+            table.insert(players_with_kills, {name = display_name, kills = kills, damage = damage})
+        end
+    end
 	
 	-- Сортируем по убийствам (больше сверху)
-	table.sort(players_with_kills, function(a, b)
-		return a.kills > b.kills
-	end)
+    table.sort(players_with_kills, function(a, b)
+        if a.kills == b.kills then
+            return (a.damage or 0) > (b.damage or 0)
+        end
+        return a.kills > b.kills
+    end)
 	
     -- Формируем текст с учетом настроек
     local lines = {}
     if not mod.hide_team_kills then
-        table.insert(lines, "TEAM KILLS: " .. total_kills)
+        table.insert(lines, "TEAM KILLS: " .. total_kills .. " / " .. total_damage)
     end
 
     if not mod.hide_user_kills and #players_with_kills > 0 then
         for _, player in ipairs(players_with_kills) do
-            table.insert(lines, player.name .. ": " .. player.kills)
+            local dmg = math.floor(player.damage or 0)
+            table.insert(lines, player.name .. ": " .. player.kills .. " / " .. dmg)
         end
     end
 

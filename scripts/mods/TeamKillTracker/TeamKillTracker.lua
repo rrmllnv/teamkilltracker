@@ -13,6 +13,9 @@ local hud_elements = {
 }
 
 mod.player_kills = {}
+mod.player_damage = {}
+mod.killed_units = {}
+mod.current_health = {}
 
 for _, hud_element in ipairs(hud_elements) do
 	mod:add_require_path(hud_element.filename)
@@ -42,6 +45,9 @@ end
 
 local function recreate_hud()
     mod.player_kills = {}
+    mod.player_damage = {}
+    mod.killed_units = {}
+    mod.current_health = {}
     mod.hide_team_kills = mod:get("hide_team_kills")
     mod.hide_user_kills = mod:get("hide_user_kills")
 end
@@ -61,16 +67,26 @@ function mod.on_game_state_changed(status, state_name)
 	end
 end
 
-mod.add_to_killcounter = function(player_name)
-	if not player_name then
+mod.add_to_killcounter = function(account_id)
+    if not account_id then
 		return
 	end
 	
-	if not mod.player_kills[player_name] then
-		mod.player_kills[player_name] = 0
+    if not mod.player_kills[account_id] then
+        mod.player_kills[account_id] = 0
 	end
 	
-	mod.player_kills[player_name] = mod.player_kills[player_name] + 1
+    mod.player_kills[account_id] = mod.player_kills[account_id] + 1
+end
+
+mod.add_to_damage = function(account_id, amount)
+    if not account_id or not amount then
+        return
+    end
+    if not mod.player_damage[account_id] then
+        mod.player_damage[account_id] = 0
+    end
+    mod.player_damage[account_id] = mod.player_damage[account_id] + math.max(0, amount)
 end
 
 -- Получаем игрока по юниту (проверяем всех игроков)
@@ -91,17 +107,50 @@ mod:hook_safe(CLASS.AttackReportManager, "add_attack_result",
 function(self, damage_profile, attacked_unit, attacking_unit, attack_direction, hit_world_position, hit_weakspot, damage,
 	attack_result, attack_type, damage_efficiency, ...)
 
-	local player = mod:player_from_unit(attacking_unit)
-	if player then
-		local unit_data_extension = ScriptUnit.has_extension(attacked_unit, "unit_data_system")
-		local breed_or_nil = unit_data_extension and unit_data_extension:breed()
-		local target_is_minion = breed_or_nil and Breed.is_minion(breed_or_nil)		
-		if target_is_minion then
-			if attack_result == "died" then
-				local player_name = player:name() or "Player"
-				mod.add_to_killcounter(player_name)
-			end
-		end
-	end
+    local player = mod:player_from_unit(attacking_unit)
+    if player then
+        local unit_data_extension = ScriptUnit.has_extension(attacked_unit, "unit_data_system")
+        local breed_or_nil = unit_data_extension and unit_data_extension:breed()
+        local target_is_minion = breed_or_nil and Breed.is_minion(breed_or_nil)
+        if target_is_minion then
+            local account_id = player:account_id() or player:name() or "Player"
+
+            -- Подсчет урона (как в scoreboard): фактический + overkill
+            local current_health = mod.current_health[attacked_unit]
+            local unit_health_extension = ScriptUnit.has_extension(attacked_unit, "health_system")
+            local new_health = unit_health_extension and unit_health_extension:current_health()
+
+            local dealt = damage or 0
+            local actual_damage = dealt
+            local overkill_damage = 0
+
+            if attack_result == "damaged" then
+                if not current_health then
+                    current_health = (new_health or 0) + dealt
+                end
+                actual_damage = math.min(dealt, current_health)
+                mod.current_health[attacked_unit] = new_health
+
+            elseif attack_result == "died" then
+                if not current_health then
+                    current_health = dealt
+                end
+                actual_damage = current_health
+                overkill_damage = dealt - actual_damage
+                mod.current_health[attacked_unit] = nil
+
+                -- Килл: считаем один раз на юнит
+                if not mod.killed_units[attacked_unit] then
+                    mod.killed_units[attacked_unit] = true
+                    mod.add_to_killcounter(account_id)
+                end
+            end
+
+            local total_damage = (actual_damage or 0) + (overkill_damage or 0)
+            if total_damage > 0 then
+                mod.add_to_damage(account_id, total_damage)
+            end
+        end
+    end
 end)
 
