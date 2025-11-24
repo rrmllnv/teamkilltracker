@@ -15,7 +15,6 @@ local hud_elements = {
 mod.player_kills = {}
 mod.player_damage = {}
 mod.killed_units = {}
-mod.current_health = {}
 
 for _, hud_element in ipairs(hud_elements) do
 	mod:add_require_path(hud_element.filename)
@@ -47,7 +46,6 @@ local function recreate_hud()
     mod.player_kills = {}
     mod.player_damage = {}
     mod.killed_units = {}
-    mod.current_health = {}
     mod.hide_team_kills = mod:get("hide_team_kills")
     mod.hide_user_kills = mod:get("hide_user_kills")
     mod.hud_counter_mode = mod:get("hud_counter_mode") or 1
@@ -105,6 +103,12 @@ mod.player_from_unit = function(self, unit)
 	return nil
 end
 
+-- Проверяем, локальная ли сессия (для корректного подсчёта overkill)
+local function is_local_session()
+    local game_mode_name = Managers.state.game_mode and Managers.state.game_mode:game_mode_name()
+    return game_mode_name == "shooting_range" or game_mode_name == "hub"
+end
+
 mod:hook_safe(CLASS.AttackReportManager, "add_attack_result",
 function(self, damage_profile, attacked_unit, attacking_unit, attack_direction, hit_world_position, hit_weakspot, damage,
 	attack_result, attack_type, damage_efficiency, ...)
@@ -114,43 +118,41 @@ function(self, damage_profile, attacked_unit, attacking_unit, attack_direction, 
         local unit_data_extension = ScriptUnit.has_extension(attacked_unit, "unit_data_system")
         local breed_or_nil = unit_data_extension and unit_data_extension:breed()
         local target_is_minion = breed_or_nil and Breed.is_minion(breed_or_nil)
+        
         if target_is_minion then
             local account_id = player:account_id() or player:name() or "Player"
-
-            -- Подсчет урона (как в scoreboard): фактический + overkill
-            local current_health = mod.current_health[attacked_unit]
             local unit_health_extension = ScriptUnit.has_extension(attacked_unit, "health_system")
-            local new_health = unit_health_extension and unit_health_extension:current_health()
-
-            local dealt = damage or 0
-            local actual_damage = dealt
-            local overkill_damage = 0
-
-            if attack_result == "damaged" then
-                if not current_health then
-                    current_health = (new_health or 0) + dealt
+            
+            -- Логика подсчёта урона из Power_DI
+            local health_damage = 0
+            
+            if attack_result == "died" then
+                -- При смерти: вычисляем здоровье, которое осталось у цели перед ударом
+                local attacked_unit_damage_taken = unit_health_extension and unit_health_extension:damage_taken()
+                local defender_max_health = unit_health_extension and unit_health_extension:max_health()
+                local is_local = is_local_session()
+                
+                if defender_max_health and not is_local then
+                    health_damage = defender_max_health - (attacked_unit_damage_taken or 0)
+                elseif defender_max_health and is_local then
+                    health_damage = defender_max_health - (attacked_unit_damage_taken or 0) + (damage or 0)
+                else
+                    health_damage = damage or 1
                 end
-                actual_damage = math.min(dealt, current_health)
-                mod.current_health[attacked_unit] = new_health
-
-            elseif attack_result == "died" then
-                if not current_health then
-                    current_health = dealt
-                end
-                actual_damage = current_health
-                overkill_damage = dealt - actual_damage
-                mod.current_health[attacked_unit] = nil
-
+                
                 -- Килл: считаем один раз на юнит
                 if not mod.killed_units[attacked_unit] then
                     mod.killed_units[attacked_unit] = true
                     mod.add_to_killcounter(account_id)
                 end
+                
+            elseif attack_result == "damaged" then
+                -- При обычном уроне просто берём значение damage
+                health_damage = damage or 0
             end
-
-            local total_damage = (actual_damage or 0) + (overkill_damage or 0)
-            if total_damage > 0 then
-                mod.add_to_damage(account_id, total_damage)
+            
+            if health_damage > 0 then
+                mod.add_to_damage(account_id, health_damage)
             end
         end
     end
