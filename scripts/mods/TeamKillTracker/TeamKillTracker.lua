@@ -42,6 +42,24 @@ mod._is_in_hub = function()
 	return game_mode_name == "hub"
 end
 
+-- Форматирование числа с разделителем тысяч (запятая)
+mod.format_number = function(number)
+	local num = math.floor(number)
+	if num < 1000 then
+		return tostring(num)
+	end
+	
+	local formatted = tostring(num)
+	local k
+	while true do
+		formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+		if k == 0 then
+			break
+		end
+	end
+	return formatted
+end
+
 local function recreate_hud()
     mod.player_kills = {}
     mod.player_damage = {}

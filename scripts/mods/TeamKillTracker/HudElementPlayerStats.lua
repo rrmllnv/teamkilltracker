@@ -119,11 +119,11 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
     local mode = mod.hud_counter_mode or mod:get("hud_counter_mode") or 1
     if not mod.hide_team_kills then
         if mode == 1 then
-            table.insert(lines, "TEAM KILLS: " .. total_kills .. " / " .. total_damage)
+            table.insert(lines, "TEAM KILLS: " .. total_kills .. " / " .. mod.format_number(total_damage))
         elseif mode == 2 then
             table.insert(lines, "TEAM KILLS: " .. total_kills)
         elseif mode == 3 then
-            table.insert(lines, "TEAM DAMAGE: " .. total_damage)
+            table.insert(lines, "TEAM DAMAGE: " .. mod.format_number(total_damage))
         end
     end
 
@@ -131,11 +131,11 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
         for _, player in ipairs(players_with_kills) do
             local dmg = math.floor(player.damage or 0)
             if mode == 1 then
-                table.insert(lines, player.name .. ": " .. player.kills .. " / " .. dmg)
+                table.insert(lines, player.name .. ": " .. player.kills .. " / " .. mod.format_number(dmg))
             elseif mode == 2 then
                 table.insert(lines, player.name .. ": " .. player.kills)
             elseif mode == 3 then
-                table.insert(lines, player.name .. ": " .. dmg)
+                table.insert(lines, player.name .. ": " .. mod.format_number(dmg))
             end
         end
     end
