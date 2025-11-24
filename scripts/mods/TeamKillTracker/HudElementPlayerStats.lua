@@ -117,13 +117,17 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
     -- Формируем текст с учетом настроек
     local lines = {}
     local mode = mod.hud_counter_mode or mod:get("hud_counter_mode") or 1
+    local kills_color = mod.get_kills_color_string()
+    local damage_color = mod.get_damage_color_string()
+    local reset_color = "{#reset()}"
+    
     if not mod.hide_team_kills then
         if mode == 1 then
-            table.insert(lines, "TEAM KILLS: " .. total_kills .. " / " .. mod.format_number(total_damage))
+            table.insert(lines, "TEAM KILLS: " .. kills_color .. total_kills .. reset_color .. " (" .. damage_color .. mod.format_number(total_damage) .. reset_color .. ")")
         elseif mode == 2 then
-            table.insert(lines, "TEAM KILLS: " .. total_kills)
+            table.insert(lines, "TEAM KILLS: " .. kills_color .. total_kills .. reset_color)
         elseif mode == 3 then
-            table.insert(lines, "TEAM DAMAGE: " .. mod.format_number(total_damage))
+            table.insert(lines, "TEAM DAMAGE: " .. damage_color .. mod.format_number(total_damage) .. reset_color)
         end
     end
 
@@ -131,11 +135,11 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
         for _, player in ipairs(players_with_kills) do
             local dmg = math.floor(player.damage or 0)
             if mode == 1 then
-                table.insert(lines, player.name .. ": " .. player.kills .. " / " .. mod.format_number(dmg))
+                table.insert(lines, player.name .. ": " .. kills_color .. player.kills .. reset_color .. " (" .. damage_color .. mod.format_number(dmg) .. reset_color .. ")")
             elseif mode == 2 then
-                table.insert(lines, player.name .. ": " .. player.kills)
+                table.insert(lines, player.name .. ": " .. kills_color .. player.kills .. reset_color)
             elseif mode == 3 then
-                table.insert(lines, player.name .. ": " .. mod.format_number(dmg))
+                table.insert(lines, player.name .. ": " .. damage_color .. mod.format_number(dmg) .. reset_color)
             end
         end
     end

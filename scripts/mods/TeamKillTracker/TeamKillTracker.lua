@@ -60,6 +60,32 @@ mod.format_number = function(number)
 	return formatted
 end
 
+-- Предопределённые цвета
+local color_presets = {
+	white = {255, 255, 255},
+	red = {255, 50, 50},
+	green = {50, 255, 50},
+	blue = {100, 150, 255},
+	yellow = {255, 255, 50},
+	orange = {255, 180, 50},
+	purple = {200, 100, 255},
+	cyan = {50, 255, 255},
+}
+
+-- Получить строку цвета для убийств
+mod.get_kills_color_string = function()
+	local color_name = mod.kills_color or "white"
+	local rgb = color_presets[color_name] or color_presets["white"]
+	return string.format("{#color(%d,%d,%d)}", rgb[1], rgb[2], rgb[3])
+end
+
+-- Получить строку цвета для урона
+mod.get_damage_color_string = function()
+	local color_name = mod.damage_color or "orange"
+	local rgb = color_presets[color_name] or color_presets["orange"]
+	return string.format("{#color(%d,%d,%d)}", rgb[1], rgb[2], rgb[3])
+end
+
 local function recreate_hud()
     mod.player_kills = {}
     mod.player_damage = {}
@@ -67,6 +93,8 @@ local function recreate_hud()
     mod.hide_team_kills = mod:get("hide_team_kills")
     mod.hide_user_kills = mod:get("hide_user_kills")
     mod.hud_counter_mode = mod:get("hud_counter_mode") or 1
+    mod.kills_color = mod:get("kills_color") or "white"
+    mod.damage_color = mod:get("damage_color") or "orange"
 end
 
 mod.on_all_mods_loaded = function()
@@ -77,6 +105,8 @@ mod.on_setting_changed = function()
     mod.hide_team_kills = mod:get("hide_team_kills")
     mod.hide_user_kills = mod:get("hide_user_kills")
     mod.hud_counter_mode = mod:get("hud_counter_mode") or 1
+    mod.kills_color = mod:get("kills_color") or "white"
+    mod.damage_color = mod:get("damage_color") or "orange"
 end
 
 function mod.on_game_state_changed(status, state_name)
