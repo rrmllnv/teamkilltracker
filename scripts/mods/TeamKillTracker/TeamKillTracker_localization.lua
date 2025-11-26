@@ -23,6 +23,10 @@ return {
         en = "Team total only",
         ru = "Только общий счёт",
     },
+    display_mode_except_me = {
+        en = "Everyone except me",
+        ru = "Все, кроме меня",
+    },
 	    hud_counter_mode = {
 	        en = "HUD Counter Mode",
 	        ru = "Режим счетчика в HUD",

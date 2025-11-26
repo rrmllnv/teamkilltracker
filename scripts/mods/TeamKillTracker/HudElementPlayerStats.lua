@@ -294,6 +294,7 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
     local show_team_summary = display_mode ~= 2
     local show_user_lines = display_mode ~= 3
     local show_only_local = display_mode == 2
+    local hide_local_line = display_mode == 4
     local kills_color = mod.get_kills_color_string()
     local damage_color = mod.get_damage_color_string()
     local last_damage_color = mod.get_last_damage_color_string()
@@ -318,6 +319,10 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
     if show_user_lines and #players_with_kills > 0 then
         for _, player in ipairs(players_with_kills) do
             if show_only_local and (not local_account_id or player.account_id ~= local_account_id) then
+                goto continue
+            end
+
+            if hide_local_line and local_account_id and player.account_id == local_account_id then
                 goto continue
             end
 

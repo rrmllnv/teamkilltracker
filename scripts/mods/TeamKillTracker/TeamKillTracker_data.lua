@@ -28,6 +28,7 @@ return {
 					{text = "display_mode_default", value = 1},
 					{text = "display_mode_only_me", value = 2},
 					{text = "display_mode_team_only", value = 3},
+					{text = "display_mode_except_me", value = 4},
 				},
 			},
 			{
