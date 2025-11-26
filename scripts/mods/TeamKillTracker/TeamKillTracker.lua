@@ -149,7 +149,7 @@ mod.add_to_damage = function(account_id, amount)
     end
     local clamped_amount = math.max(0, amount)
     mod.player_damage[account_id] = mod.player_damage[account_id] + clamped_amount
-    mod.player_last_damage[account_id] = clamped_amount
+    mod.player_last_damage[account_id] = math.ceil(clamped_amount)
 end
 
 -- Получаем игрока по юниту (проверяем всех игроков)
