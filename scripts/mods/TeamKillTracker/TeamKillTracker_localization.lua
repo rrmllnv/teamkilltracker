@@ -95,4 +95,36 @@ return {
 	        en = "Cyan",
 	        ru = "Голубой",
 	    },
+	    color_teal = {
+	        en = "Teal",
+	        ru = "Бирюзовый",
+	    },
+	    color_gold = {
+	        en = "Gold",
+	        ru = "Золотой",
+	    },
+	    color_purple_deep = {
+	        en = "Purple (deep)",
+	        ru = "Фиолетовый тёмный",
+	    },
+	    color_magenta = {
+	        en = "Magenta",
+	        ru = "Пурпурный",
+	    },
+	    color_orange_dark = {
+	        en = "Dark orange",
+	        ru = "Тёмный оранжевый",
+	    },
+	    color_orange_medium = {
+	        en = "Medium orange",
+	        ru = "Средний оранжевый",
+	    },
+	    color_amber = {
+	        en = "Amber",
+	        ru = "Янтарный",
+	    },
+	    color_grey = {
+	        en = "Medium grey",
+	        ru = "Средний серый",
+	    },
 }

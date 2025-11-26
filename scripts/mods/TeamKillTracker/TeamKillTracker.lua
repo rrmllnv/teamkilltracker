@@ -65,13 +65,21 @@ end
 -- Предопределённые цвета
 local color_presets = {
 	white = {255, 255, 255},
-	red = {255, 50, 50},
-	green = {50, 255, 50},
-	blue = {100, 150, 255},
-	yellow = {255, 255, 50},
-	orange = {255, 180, 50},
-	purple = {200, 100, 255},
-	cyan = {50, 255, 255},
+	red = {255, 54, 36},        -- ui_red_light
+	green = {61, 112, 55},      -- ui_green_medium
+	blue = {30, 144, 255},      -- dodger_blue
+	yellow = {226, 199, 126},   -- ui_terminal
+	orange = {255, 183, 44},    -- ui_orange_light
+	purple = {166, 93, 172},    -- ui_corruption_default
+	cyan = {107, 209, 241},     -- ui_blue_light
+	teal = {62, 143, 155},          -- ui_toughness_medium
+	gold = {196, 195, 108},         -- ui_toughness_buffed
+	purple_deep = {130, 66, 170},   -- ui_corruption_medium
+	magenta = {102, 38, 98},        -- ui_ability_purple
+	orange_dark = {148, 46, 14},    -- ui_orange_dark
+	orange_medium = {245, 121, 21}, -- ui_orange_medium
+	amber = {191, 151, 73},         -- ui_terminal_dark
+	grey = {102, 102, 102},         -- ui_grey_medium
 }
 
 -- Получить строку цвета для убийств
