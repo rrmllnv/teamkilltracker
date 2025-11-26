@@ -14,6 +14,7 @@ local hud_elements = {
 
 mod.player_kills = {}
 mod.player_damage = {}
+mod.player_last_damage = {}
 mod.killed_units = {}
 
 for _, hud_element in ipairs(hud_elements) do
@@ -86,15 +87,23 @@ mod.get_damage_color_string = function()
 	return string.format("{#color(%d,%d,%d)}", rgb[1], rgb[2], rgb[3])
 end
 
+mod.get_last_damage_color_string = function()
+	local color_name = mod.last_damage_color or "orange"
+	local rgb = color_presets[color_name] or color_presets["orange"]
+	return string.format("{#color(%d,%d,%d)}", rgb[1], rgb[2], rgb[3])
+end
+
 local function recreate_hud()
     mod.player_kills = {}
     mod.player_damage = {}
+    mod.player_last_damage = {}
     mod.killed_units = {}
     mod.hide_team_kills = mod:get("hide_team_kills")
     mod.hide_user_kills = mod:get("hide_user_kills")
     mod.hud_counter_mode = mod:get("hud_counter_mode") or 1
     mod.kills_color = mod:get("kills_color") or "white"
     mod.damage_color = mod:get("damage_color") or "orange"
+    mod.last_damage_color = mod:get("last_damage_color") or "orange"
 end
 
 mod.on_all_mods_loaded = function()
@@ -107,6 +116,11 @@ mod.on_setting_changed = function()
     mod.hud_counter_mode = mod:get("hud_counter_mode") or 1
     mod.kills_color = mod:get("kills_color") or "white"
     mod.damage_color = mod:get("damage_color") or "orange"
+    mod.last_damage_color = mod:get("last_damage_color") or "orange"
+
+    if mod.hud_element then
+        mod.hud_element:set_dirty()
+    end
 end
 
 function mod.on_game_state_changed(status, state_name)
@@ -134,7 +148,9 @@ mod.add_to_damage = function(account_id, amount)
     if not mod.player_damage[account_id] then
         mod.player_damage[account_id] = 0
     end
-    mod.player_damage[account_id] = mod.player_damage[account_id] + math.max(0, amount)
+    local clamped_amount = math.max(0, amount)
+    mod.player_damage[account_id] = mod.player_damage[account_id] + clamped_amount
+    mod.player_last_damage[account_id] = clamped_amount
 end
 
 -- Получаем игрока по юниту (проверяем всех игроков)

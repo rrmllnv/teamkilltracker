@@ -15,6 +15,9 @@ return {
 					{text = "hud_counter_mode_kills_damage", value = 1},
 					{text = "hud_counter_mode_kills", value = 2},
 					{text = "hud_counter_mode_damage", value = 3},
+					{text = "hud_counter_mode_last_damage", value = 4},
+					{text = "hud_counter_mode_kills_last_damage", value = 5},
+					{text = "hud_counter_mode_kills_total_last_damage", value = 6},
 				},
 			},
             {
@@ -44,6 +47,21 @@ return {
 			},
 			{
 				setting_id = "damage_color",
+				type = "dropdown",
+				default_value = "orange",
+				options = {
+					{text = "color_white", value = "white"},
+					{text = "color_red", value = "red"},
+					{text = "color_green", value = "green"},
+					{text = "color_blue", value = "blue"},
+					{text = "color_yellow", value = "yellow"},
+					{text = "color_orange", value = "orange"},
+					{text = "color_purple", value = "purple"},
+					{text = "color_cyan", value = "cyan"},
+				},
+			},
+			{
+				setting_id = "last_damage_color",
 				type = "dropdown",
 				default_value = "orange",
 				options = {

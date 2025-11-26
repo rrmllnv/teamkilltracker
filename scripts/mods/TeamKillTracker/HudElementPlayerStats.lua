@@ -245,6 +245,7 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
     -- Обновление текста
     local total_kills = 0
     local total_damage = 0
+    local total_last_damage = 0
     local players_with_kills = {}
 	
 	-- Получаем список текущих игроков в команде
@@ -269,7 +270,9 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
             total_kills = total_kills + kills
             local damage = (mod.player_damage and mod.player_damage[account_id]) or 0
             total_damage = total_damage + math.floor(damage)
-            table.insert(players_with_kills, {name = display_name, kills = kills, damage = damage})
+            local last_damage = (mod.player_last_damage and mod.player_last_damage[account_id]) or 0
+            total_last_damage = total_last_damage + math.floor(last_damage)
+            table.insert(players_with_kills, {name = display_name, kills = kills, damage = damage, last_damage = last_damage})
         end
     end
 	
@@ -286,6 +289,7 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
     local mode = mod.hud_counter_mode or mod:get("hud_counter_mode") or 1
     local kills_color = mod.get_kills_color_string()
     local damage_color = mod.get_damage_color_string()
+    local last_damage_color = mod.get_last_damage_color_string()
     local reset_color = "{#reset()}"
     
     if not mod.hide_team_kills then
@@ -295,18 +299,32 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
             table.insert(lines, "TEAM KILLS: " .. kills_color .. total_kills .. reset_color)
         elseif mode == 3 then
             table.insert(lines, "TEAM DAMAGE: " .. damage_color .. mod.format_number(total_damage) .. reset_color)
+        elseif mode == 4 then
+            table.insert(lines, "TEAM LAST DAMAGE: " .. last_damage_color .. mod.format_number(total_last_damage) .. reset_color)
+        elseif mode == 5 then
+            table.insert(lines, "TEAM KILLS: " .. kills_color .. total_kills .. reset_color .. " [" .. last_damage_color .. mod.format_number(total_last_damage) .. reset_color .. "]")
+        elseif mode == 6 then
+            table.insert(lines, "TEAM KILLS: " .. kills_color .. total_kills .. reset_color .. " (" .. damage_color .. mod.format_number(total_damage) .. reset_color .. ") [" .. last_damage_color .. mod.format_number(total_last_damage) .. reset_color .. "]")
         end
     end
 
     if not mod.hide_user_kills and #players_with_kills > 0 then
         for _, player in ipairs(players_with_kills) do
             local dmg = math.floor(player.damage or 0)
+            local last_dmg = math.floor(player.last_damage or 0)
+
             if mode == 1 then
                 table.insert(lines, player.name .. ": " .. kills_color .. player.kills .. reset_color .. " (" .. damage_color .. mod.format_number(dmg) .. reset_color .. ")")
             elseif mode == 2 then
                 table.insert(lines, player.name .. ": " .. kills_color .. player.kills .. reset_color)
             elseif mode == 3 then
                 table.insert(lines, player.name .. ": " .. damage_color .. mod.format_number(dmg) .. reset_color)
+            elseif mode == 4 then
+                table.insert(lines, player.name .. ": [" .. last_damage_color .. mod.format_number(last_dmg) .. reset_color .. "]")
+            elseif mode == 5 then
+                table.insert(lines, player.name .. ": " .. kills_color .. player.kills .. reset_color .. " [" .. last_damage_color .. mod.format_number(last_dmg) .. reset_color .. "]")
+            elseif mode == 6 then
+                table.insert(lines, player.name .. ": " .. kills_color .. player.kills .. reset_color .. " (" .. damage_color .. mod.format_number(dmg) .. reset_color .. ") [" .. last_damage_color .. mod.format_number(last_dmg) .. reset_color .. "]")
             end
         end
     end
