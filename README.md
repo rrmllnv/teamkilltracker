@@ -73,9 +73,10 @@ If you encounter problems:
 3. Restart the game after installation
 
 ## Versions
-1.6.1
+1.7.0
 
 ## Changelogs
+- 1.7.0 – added “everyone except me” display mode and expanded HUD color presets.
 - 1.6.1 – last-hit damage now rounds up to the nearest integer.
 - 1.6.0 – new display modes (all / only me / team total), last-damage color option, dynamic HUD height and layout tweaks.
 - 1.5.0 – added color customization for kills and damage display (8 color presets available).
@@ -177,9 +178,10 @@ PlayerName4: 15 (4,321) [543]
 3. Перезапустите игру после установки
 
 ## Версии
-1.6.1
+1.7.0
 
 ## Журнал изменений
+- 1.7.0 — добавлен режим отображения «все, кроме меня» и расширен набор цветовых пресетов HUD.
 - 1.6.1 — последний удар округляется вверх до ближайшего целого.
 - 1.6.0 — новые режимы отображения (всё / только я / только общий счёт), отдельный цвет последнего урона и адаптивная высота HUD.
 - 1.5.0 — добавлена настройка цвета для отображения убийств и урона (доступно 8 готовых цветов).
