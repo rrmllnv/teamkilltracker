@@ -28,11 +28,11 @@ TeamKillTracker displays a permanent team kill counter in the bottom left corner
 
 The counter displays in format:
 ```
-TEAM KILLS: 125 (56,789)
-PlayerName1: 45 (15,432)
-PlayerName2: 38 (12,345)
-PlayerName3: 27 (9,876)
-PlayerName4: 15 (4,321)
+TEAM KILLS: 125 (56,789) [12,345]
+PlayerName1: 45 (15,432) [1,234]
+PlayerName2: 38 (12,345) [987]
+PlayerName3: 27 (9,876) [654]
+PlayerName4: 15 (4,321) [543]
 ```
 
 **Position**: Bottom left corner of screen  
@@ -73,9 +73,10 @@ If you encounter problems:
 3. Restart the game after installation
 
 ## Versions
-1.5.0
+1.6.0
 
 ## Changelogs
+- 1.6.0 – new display modes (all / only me / team total), last-damage color option, dynamic HUD height and layout tweaks.
 - 1.5.0 – added color customization for kills and damage display (8 color presets available).
 - 1.4.0 – fixed kill counting and damage calculation.
 - 1.3.0 – added HUD Counter Mode setting (dropdown: Kills (Damage), Kills only, Damage only).
@@ -130,11 +131,11 @@ TeamKillTracker отображает постоянный счетчик уби�
 
 Счетчик отображается в формате:
 ```
-TEAM KILLS: 125 (56,789)
-PlayerName1: 45 (15,432)
-PlayerName2: 38 (12,345)
-PlayerName3: 27 (9,876)
-PlayerName4: 15 (4,321)
+TEAM KILLS: 125 (56,789) [12,345]
+PlayerName1: 45 (15,432) [1,234]
+PlayerName2: 38 (12,345) [987]
+PlayerName3: 27 (9,876) [654]
+PlayerName4: 15 (4,321) [543]
 ```
 
 **Позиция**: Левый нижний угол экрана  
@@ -178,6 +179,7 @@ PlayerName4: 15 (4,321)
 1.5.0
 
 ## Журнал изменений
+- 1.6.0 — новые режимы отображения (всё / только я / только общий счёт), отдельный цвет последнего урона и адаптивная высота HUD.
 - 1.5.0 — добавлена настройка цвета для отображения убийств и урона (доступно 8 готовых цветов).
 - 1.4.0 — исправлен подсчёт убийств и расчёт урона.
 - 1.3.0 — добавлена настройка «Режим счётчика в HUD» (выпадающий список: Убийства (Урон), Только убийства, Только урон).
