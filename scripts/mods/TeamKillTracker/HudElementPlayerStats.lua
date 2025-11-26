@@ -13,7 +13,7 @@ local hud_body_font_settings = UIFontSettings.hud_body or {}
 local font_size = 16
 local panel_size = HudElementTeamPanelHandlerSettings.panel_size
 local BORDER_PADDING = 5
-local DEFAULT_PANEL_HEIGHT = HudElementTeamPanelHandlerSettings.panel_size[2]
+local DEFAULT_PANEL_HEIGHT = math.floor(font_size * (hud_body_font_settings.line_spacing or 1.2)) + BORDER_PADDING * 2
 local panel_offset = HudElementTeamPanelHandlerSettings.panel_offset
 local background_color = UIHudSettings.color_tint_7
 local background_gradient = "content/ui/materials/hud/backgrounds/team_player_panel_background"
@@ -124,10 +124,6 @@ local function calculate_panel_height(line_count)
 	end
 
 	local content_height = (line_count * line_height) + BORDER_PADDING * 2
-
-	if line_count == 1 then
-		return content_height
-	end
 
 	return math.max(DEFAULT_PANEL_HEIGHT, content_height)
 end
@@ -292,7 +288,7 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
     end)
 	
     -- Формируем текст с учетом настроек
-    local lines = {}
+	local lines = {}
     local mode = mod.hud_counter_mode or mod:get("hud_counter_mode") or 1
     local display_mode = mod.display_mode or mod:get("display_mode") or 1
     local show_team_summary = display_mode ~= 2

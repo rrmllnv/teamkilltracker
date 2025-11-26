@@ -28,16 +28,16 @@ return {
 	        ru = "Режим счетчика в HUD",
 	    },
 	    hud_counter_mode_kills_damage = {
-	        en = "Kills (Damage)",
-	        ru = "Убийства (Урон)",
+	        en = "Kills (total damage)",
+	        ru = "Убийства (общий урон)",
 	    },
 	    hud_counter_mode_kills = {
 	        en = "Kills only",
 	        ru = "Только убийства",
 	    },
 	    hud_counter_mode_damage = {
-	        en = "Damage only",
-	        ru = "Только урон",
+	        en = "Total damage only",
+	        ru = "Только общий урон",
 	    },
 	    hud_counter_mode_last_damage = {
 	        en = "Last damage only",
@@ -52,15 +52,15 @@ return {
 	        ru = "Убийства (общий урон) [последний урон]",
 	    },
 	    kills_color = {
-	        en = "Kills Color",
+	        en = "Kills color",
 	        ru = "Цвет убийств",
 	    },
 	    damage_color = {
-	        en = "Damage Color",
-	        ru = "Цвет урона",
+	        en = "Total damage color",
+	        ru = "Цвет общего урона",
 	    },
 	    last_damage_color = {
-	        en = "Last Damage Color",
+	        en = "Last damage color",
 	        ru = "Цвет последнего урона",
 	    },
 	    color_white = {
