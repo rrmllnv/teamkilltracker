@@ -40,16 +40,16 @@ return {
 	        ru = "Только общий урон",
 	    },
 	    hud_counter_mode_last_damage = {
-	        en = "Last damage only",
-	        ru = "Только последний урон",
+	        en = "Last-hit damage only",
+	        ru = "Только последний удар",
 	    },
 	    hud_counter_mode_kills_last_damage = {
-	        en = "Kills [last damage]",
-	        ru = "Убийства [последний урон]",
+	        en = "Kills [last-hit damage]",
+	        ru = "Убийства [последний удар]",
 	    },
 	    hud_counter_mode_kills_total_last_damage = {
-	        en = "Kills (total damage) [last damage]",
-	        ru = "Убийства (общий урон) [последний урон]",
+	        en = "Kills (total damage) [last-hit damage]",
+	        ru = "Убийства (общий урон) [последний удар]",
 	    },
 	    kills_color = {
 	        en = "Kills color",
@@ -60,8 +60,8 @@ return {
 	        ru = "Цвет общего урона",
 	    },
 	    last_damage_color = {
-	        en = "Last damage color",
-	        ru = "Цвет последнего урона",
+	        en = "Last-hit damage color",
+	        ru = "Цвет последнего удара",
 	    },
 	    color_white = {
 	        en = "White",
