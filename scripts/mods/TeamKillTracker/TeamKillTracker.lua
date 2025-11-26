@@ -16,6 +16,7 @@ mod.player_kills = {}
 mod.player_damage = {}
 mod.player_last_damage = {}
 mod.killed_units = {}
+mod.display_mode = mod:get("display_mode") or 1
 
 for _, hud_element in ipairs(hud_elements) do
 	mod:add_require_path(hud_element.filename)
@@ -98,8 +99,7 @@ local function recreate_hud()
     mod.player_damage = {}
     mod.player_last_damage = {}
     mod.killed_units = {}
-    mod.hide_team_kills = mod:get("hide_team_kills")
-    mod.hide_user_kills = mod:get("hide_user_kills")
+    mod.display_mode = mod:get("display_mode") or 1
     mod.hud_counter_mode = mod:get("hud_counter_mode") or 1
     mod.kills_color = mod:get("kills_color") or "white"
     mod.damage_color = mod:get("damage_color") or "orange"
@@ -111,8 +111,7 @@ mod.on_all_mods_loaded = function()
 end
 
 mod.on_setting_changed = function()
-    mod.hide_team_kills = mod:get("hide_team_kills")
-    mod.hide_user_kills = mod:get("hide_user_kills")
+    mod.display_mode = mod:get("display_mode") or 1
     mod.hud_counter_mode = mod:get("hud_counter_mode") or 1
     mod.kills_color = mod:get("kills_color") or "white"
     mod.damage_color = mod:get("damage_color") or "orange"

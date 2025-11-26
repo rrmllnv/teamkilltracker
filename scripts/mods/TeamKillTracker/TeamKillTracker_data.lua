@@ -20,16 +20,16 @@ return {
 					{text = "hud_counter_mode_kills_total_last_damage", value = 6},
 				},
 			},
-            {
-                setting_id = "hide_team_kills",
-                type = "checkbox",
-                default_value = false,
-            },
-            {
-                setting_id = "hide_user_kills",
-                type = "checkbox",
-                default_value = false,
-            },
+			{
+				setting_id = "display_mode",
+				type = "dropdown",
+				default_value = 1,
+				options = {
+					{text = "display_mode_default", value = 1},
+					{text = "display_mode_only_me", value = 2},
+					{text = "display_mode_team_only", value = 3},
+				},
+			},
 			{
 				setting_id = "kills_color",
 				type = "dropdown",

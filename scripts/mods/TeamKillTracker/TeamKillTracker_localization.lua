@@ -7,13 +7,21 @@ return {
 		en = "TeamKillTracker - Shows permanent team kill counter.",
 		ru = "TeamKillTracker - Показывает постоянный счетчик убийств команды.",
 	},
-    hide_team_kills = {
-        en = "Hide Team Kills",
-        ru = "Скрыть строку Team Kills",
+    display_mode = {
+        en = "Display Mode",
+        ru = "Режим отображения",
     },
-    hide_user_kills = {
-        en = "Hide User Kills",
-        ru = "Скрыть строки пользователей",
+    display_mode_default = {
+        en = "All stats",
+        ru = "Все строки",
+    },
+    display_mode_only_me = {
+        en = "Only my stats",
+        ru = "Только моя строка",
+    },
+    display_mode_team_only = {
+        en = "Team total only",
+        ru = "Только общий счёт",
     },
 	    hud_counter_mode = {
 	        en = "HUD Counter Mode",

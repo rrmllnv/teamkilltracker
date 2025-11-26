@@ -247,6 +247,13 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
     local total_damage = 0
     local total_last_damage = 0
     local players_with_kills = {}
+    local local_account_id
+    do
+        local local_player = Managers.player and Managers.player:local_player(1)
+        if local_player then
+            local_account_id = local_player:account_id() or local_player:name()
+        end
+    end
 	
 	-- Получаем список текущих игроков в команде
 	local current_players = {}
@@ -272,7 +279,7 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
             total_damage = total_damage + math.floor(damage)
             local last_damage = (mod.player_last_damage and mod.player_last_damage[account_id]) or 0
             total_last_damage = total_last_damage + math.floor(last_damage)
-            table.insert(players_with_kills, {name = display_name, kills = kills, damage = damage, last_damage = last_damage})
+            table.insert(players_with_kills, {name = display_name, kills = kills, damage = damage, last_damage = last_damage, account_id = account_id})
         end
     end
 	
@@ -287,12 +294,16 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
     -- Формируем текст с учетом настроек
     local lines = {}
     local mode = mod.hud_counter_mode or mod:get("hud_counter_mode") or 1
+    local display_mode = mod.display_mode or mod:get("display_mode") or 1
+    local show_team_summary = display_mode ~= 2
+    local show_user_lines = display_mode ~= 3
+    local show_only_local = display_mode == 2
     local kills_color = mod.get_kills_color_string()
     local damage_color = mod.get_damage_color_string()
     local last_damage_color = mod.get_last_damage_color_string()
     local reset_color = "{#reset()}"
     
-    if not mod.hide_team_kills then
+    if show_team_summary then
         if mode == 1 then
             table.insert(lines, "TEAM KILLS: " .. kills_color .. total_kills .. reset_color .. " (" .. damage_color .. mod.format_number(total_damage) .. reset_color .. ")")
         elseif mode == 2 then
@@ -308,8 +319,12 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
         end
     end
 
-    if not mod.hide_user_kills and #players_with_kills > 0 then
+    if show_user_lines and #players_with_kills > 0 then
         for _, player in ipairs(players_with_kills) do
+            if show_only_local and (not local_account_id or player.account_id ~= local_account_id) then
+                goto continue
+            end
+
             local dmg = math.floor(player.damage or 0)
             local last_dmg = math.floor(player.last_damage or 0)
 
@@ -326,6 +341,7 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
             elseif mode == 6 then
                 table.insert(lines, player.name .. ": " .. kills_color .. player.kills .. reset_color .. " (" .. damage_color .. mod.format_number(dmg) .. reset_color .. ") [" .. last_damage_color .. mod.format_number(last_dmg) .. reset_color .. "]")
             end
+            ::continue::
         end
     end
 
