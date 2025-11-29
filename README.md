@@ -36,8 +36,8 @@ PlayerName4: 15 (4,321) [543]
 ```
 
 **Position**: Bottom left corner of screen  
-**Font**: Machine Medium, 16px  
-**Color**: White with shadow
+**Font**: Machine Medium (configurable size: 15-30px)  
+**Color**: White with shadow (customizable colors and opacity)
 
 ## Technical Information
 
@@ -61,7 +61,13 @@ The mod uses the `AttackReportManager.add_attack_result` hook to track attack re
 
 ## Settings
 
-The mod supports standard Darktide Mod Framework settings:
+The mod supports the following settings:
+- **HUD Counter Mode**: Choose what to display (Kills + Damage, Kills only, Damage only, etc.)
+- **Display Mode**: Control what players are shown (All / Only me / Team total / Everyone except me)
+- **Font Size**: Adjustable slider from 15 to 30 pixels (default: 16)
+- **Show Background**: Toggle background visibility (Show / Hide)
+- **Opacity**: Control transparency of the entire HUD element (0-100%, default: 100)
+- **Color Customization**: Separate color options for kills, damage, and last-hit damage
 - Enable/disable mod
 - Ability to reload without game restart
 
@@ -73,10 +79,11 @@ If you encounter problems:
 3. Restart the game after installation
 
 ## Versions
-1.7.0
+1.8.0
 
 ## Changelogs
-- 1.7.0 – added “everyone except me” display mode and expanded HUD color presets.
+- 1.8.0 – added font size slider (15-30), background visibility toggle, and opacity slider (0-100) for HUD element transparency.
+- 1.7.0 – added "everyone except me" display mode and expanded HUD color presets.
 - 1.6.1 – last-hit damage now rounds up to the nearest integer.
 - 1.6.0 – new display modes (all / only me / team total), last-damage color option, dynamic HUD height and layout tweaks.
 - 1.5.0 – added color customization for kills and damage display (8 color presets available).
@@ -92,6 +99,9 @@ If you encounter problems:
 - Automatic hiding in hub
 - Sorting by kill count
 - Support for Russian and English localization
+- Customizable font size (15-30px)
+- Background visibility toggle
+- Opacity control (0-100%) for HUD element
 
 ## License
 
@@ -141,8 +151,8 @@ PlayerName4: 15 (4,321) [543]
 ```
 
 **Позиция**: Левый нижний угол экрана  
-**Шрифт**: Machine Medium, 16px  
-**Цвет**: Белый с тенью
+**Шрифт**: Machine Medium (настраиваемый размер: 15-30px)  
+**Цвет**: Белый с тенью (настраиваемые цвета и прозрачность)
 
 ## Техническая информация
 
@@ -166,7 +176,13 @@ PlayerName4: 15 (4,321) [543]
 
 ## Настройки
 
-Мод поддерживает стандартные настройки Darktide Mod Framework:
+Мод поддерживает следующие настройки:
+- **Режим счетчика в HUD**: Выбор отображаемой информации (Убийства + Урон, Только убийства, Только урон и т.д.)
+- **Режим отображения**: Управление отображением игроков (Все / Только я / Только общий счёт / Все, кроме меня)
+- **Размер шрифта**: Настраиваемый слайдер от 15 до 30 пикселей (по умолчанию: 16)
+- **Показывать фон**: Переключатель видимости фона (Показать / Скрыть)
+- **Прозрачность**: Управление прозрачностью всего HUD элемента (0-100%, по умолчанию: 100)
+- **Настройка цветов**: Отдельные опции цвета для убийств, урона и последнего удара
 - Включение/выключение мода
 - Возможность перезагрузки без перезапуска игры
 
@@ -178,9 +194,10 @@ PlayerName4: 15 (4,321) [543]
 3. Перезапустите игру после установки
 
 ## Версии
-1.7.0
+1.8.0
 
 ## Журнал изменений
+- 1.8.0 — добавлен слайдер размера шрифта (15-30), переключатель видимости фона и слайдер прозрачности (0-100) для HUD элемента.
 - 1.7.0 — добавлен режим отображения «все, кроме меня» и расширен набор цветовых пресетов HUD.
 - 1.6.1 — последний удар округляется вверх до ближайшего целого.
 - 1.6.0 — новые режимы отображения (всё / только я / только общий счёт), отдельный цвет последнего урона и адаптивная высота HUD.
@@ -196,6 +213,9 @@ PlayerName4: 15 (4,321) [543]
 - Автоматическое скрытие в хабе
 - Сортировка по количеству убийств
 - Поддержка русской и английской локализации
+- Настраиваемый размер шрифта (15-30px)
+- Переключатель видимости фона
+- Управление прозрачностью HUD элемента (0-100%)
 
 ## Лицензия
 
