@@ -131,4 +131,8 @@ return {
 	        en = "Medium grey",
 	        ru = "Средний серый",
 	    },
+	    font_size = {
+	        en = "Font size",
+	        ru = "Размер шрифта",
+	    },
 }

@@ -112,6 +112,7 @@ local function recreate_hud()
     mod.kills_color = mod:get("kills_color") or "white"
     mod.damage_color = mod:get("damage_color") or "orange"
     mod.last_damage_color = mod:get("last_damage_color") or "orange"
+    mod.font_size = mod:get("font_size") or 16
 end
 
 mod.on_all_mods_loaded = function()
@@ -124,6 +125,7 @@ mod.on_setting_changed = function()
     mod.kills_color = mod:get("kills_color") or "white"
     mod.damage_color = mod:get("damage_color") or "orange"
     mod.last_damage_color = mod:get("last_damage_color") or "orange"
+    mod.font_size = mod:get("font_size") or 16
 
     if mod.hud_element then
         mod.hud_element:set_dirty()

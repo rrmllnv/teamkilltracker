@@ -100,6 +100,12 @@ return {
 					{text = "color_grey", value = "grey"},
 				},
 			},
+			{
+				setting_id = "font_size",
+				type = "numeric",
+				default_value = 16,
+				range = {15, 30},
+			},
         },
 	},
 }

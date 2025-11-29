@@ -9,16 +9,21 @@ local HudElementTeamPanelHandlerSettings = require("scripts/ui/hud/elements/team
 local HudElementTeamPlayerPanelSettings = require("scripts/ui/hud/elements/team_player_panel/hud_element_team_player_panel_settings")
 
 local hud_body_font_settings = UIFontSettings.hud_body or {}
---local font_size = hud_body_font_settings.font_size or 14
-local font_size = 16
 local panel_size = HudElementTeamPanelHandlerSettings.panel_size
 local BORDER_PADDING = 5
-local DEFAULT_PANEL_HEIGHT = math.floor(font_size * (hud_body_font_settings.line_spacing or 1.2)) + BORDER_PADDING * 2
+local function get_font_size()
+	return mod.font_size or mod:get("font_size") or 16
+end
+
+local function get_default_panel_height()
+	local font_size = get_font_size()
+	return math.floor(font_size * (hud_body_font_settings.line_spacing or 1.2)) + BORDER_PADDING * 2
+end
 local panel_offset = {550, -200, 0}
 local background_color = UIHudSettings.color_tint_7
 local background_gradient = "content/ui/materials/hud/backgrounds/team_player_panel_background"
 local width = panel_size[1]
-local base_size = {width, DEFAULT_PANEL_HEIGHT}
+local base_size = {width, get_default_panel_height()}
 local function apply_panel_height(self, panel_height)
 	local width = base_size[1]
 
@@ -62,6 +67,8 @@ local function apply_panel_height(self, panel_height)
 	local text_style = styles.text
 
 	if text_style then
+		local font_size = get_font_size()
+		text_style.font_size = font_size
 		text_style.size = text_style.size or {
 			width - BORDER_PADDING * 2,
 			panel_height - BORDER_PADDING * 2,
@@ -97,35 +104,41 @@ local scenegraph_definition = {
 	},
 }
 
-local teamKillStyle = {
-	line_spacing = 1.2,
-	font_size = font_size,
-	drop_shadow = true,
-	font_type = hud_body_font_settings.font_type or "machine_medium",
-	text_color = {255, 255, 255, 255},
-	size = {
-		base_size[1] - BORDER_PADDING * 2,
-		base_size[2] - BORDER_PADDING * 2,
-	},
-	text_horizontal_alignment = "left",
-	text_vertical_alignment = "top",
-	offset = {
-		BORDER_PADDING,
-		BORDER_PADDING,
-		0,
-	},
-}
+local function get_team_kill_style()
+	local font_size = get_font_size()
+	local panel_height = get_default_panel_height()
+	return {
+		line_spacing = 1.2,
+		font_size = font_size,
+		drop_shadow = true,
+		font_type = hud_body_font_settings.font_type or "machine_medium",
+		text_color = {255, 255, 255, 255},
+		size = {
+			width - BORDER_PADDING * 2,
+			panel_height - BORDER_PADDING * 2,
+		},
+		text_horizontal_alignment = "left",
+		text_vertical_alignment = "top",
+		offset = {
+			BORDER_PADDING,
+			BORDER_PADDING,
+			0,
+		},
+	}
+end
 
 local function calculate_panel_height(line_count)
-	local line_height = math.floor(teamKillStyle.font_size * teamKillStyle.line_spacing)
+	local font_size = get_font_size()
+	local line_height = math.floor(font_size * 1.2)
+	local default_height = get_default_panel_height()
 
 	if line_count <= 0 then
-		return DEFAULT_PANEL_HEIGHT
+		return default_height
 	end
 
 	local content_height = (line_count * line_height) + BORDER_PADDING * 2
 
-	return math.max(DEFAULT_PANEL_HEIGHT, content_height)
+	return math.max(default_height, content_height)
 end
 
 local widget_definitions = {
@@ -206,7 +219,7 @@ local widget_definitions = {
 				value_id = "text",
 				style_id = "text",
 				pass_type = "text",
-				style = teamKillStyle,
+				style = get_team_kill_style(),
 			},
 		},
 		"teamKillContainer"
