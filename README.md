@@ -4,10 +4,7 @@ A mod for Warhammer 40,000: Darktide that tracks team kills in real time.
 
 ## Description
 
-TeamKillTracker displays a permanent team kill counter in the bottom left corner of the screen. The mod shows:
-- Total team kill count
-- Individual statistics for each player
-- Player sorting by kill count (highest to lowest)
+TeamKillTracker keeps a permanent HUD that displays the total team score and a descending list of players with their kills, total damage, and last-hit damage (the player with the most kills stays on top). You can switch the display to "all stats", "only my stats", "team total only", or "everyone except me", and customize colors independently for kills, total damage, and last-hit damage. Additionally, you can adjust the font size (15-30px), toggle background visibility, and control the opacity (0-100%) of the entire HUD element for a fully personalized experience.
 
 ## Features
 
@@ -119,10 +116,7 @@ This mod is distributed as is. Use at your own risk.
 
 ## Описание
 
-TeamKillTracker отображает постоянный счетчик убийств команды в левом нижнем углу экрана. Мод показывает:
-- Общее количество убийств команды
-- Индивидуальную статистику каждого игрока
-- Сортировку игроков по количеству убийств (от большего к меньшему)
+TeamKillTracker поддерживает постоянный HUD, который отображает общий счёт команды и нисходящий список игроков с их убийствами, общим уроном и уроном последнего удара (игрок с наибольшим количеством убийств остаётся сверху). Вы можете переключить отображение на «все строки», «только моя строка», «только общий счёт» или «все, кроме меня», а также настроить цвета независимо для убийств, общего урона и урона последнего удара. Дополнительно вы можете настроить размер шрифта (15-30px), переключить видимость фона и управлять прозрачностью (0-100%) всего HUD элемента для полностью персонализированного опыта.
 
 ## Особенности
 
