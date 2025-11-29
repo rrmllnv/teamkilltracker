@@ -19,6 +19,11 @@ local function get_default_panel_height()
 	local font_size = get_font_size()
 	return math.floor(font_size * (hud_body_font_settings.line_spacing or 1.2)) + BORDER_PADDING * 2
 end
+
+local function get_opacity_alpha()
+	local opacity = mod.opacity or mod:get("opacity") or 100
+	return math.floor((opacity / 100) * 255)
+end
 local panel_offset = {550, -200, 0}
 local background_color = UIHudSettings.color_tint_7
 local background_gradient = "content/ui/materials/hud/backgrounds/team_player_panel_background"
@@ -34,6 +39,10 @@ local function apply_panel_height(self, panel_height)
 	local panel_background = styles.panel_background
 
 	if panel_background then
+		local alpha = get_opacity_alpha()
+		if panel_background.color then
+			panel_background.color[1] = alpha
+		end
 		panel_background.size = panel_background.size or {
 			width,
 			panel_height,
@@ -45,6 +54,10 @@ local function apply_panel_height(self, panel_height)
 	local hit_indicator = styles.hit_indicator
 
 	if hit_indicator then
+		local alpha = get_opacity_alpha()
+		if hit_indicator.color then
+			hit_indicator.color[1] = alpha
+		end
 		hit_indicator.size = hit_indicator.size or {
 			width + 20,
 			panel_height + 20,
@@ -56,6 +69,10 @@ local function apply_panel_height(self, panel_height)
 	local hit_indicator_armor_break = styles.hit_indicator_armor_break
 
 	if hit_indicator_armor_break then
+		local alpha = get_opacity_alpha()
+		if hit_indicator_armor_break.color then
+			hit_indicator_armor_break.color[1] = alpha
+		end
 		hit_indicator_armor_break.size = hit_indicator_armor_break.size or {
 			width,
 			panel_height,
@@ -68,7 +85,11 @@ local function apply_panel_height(self, panel_height)
 
 	if text_style then
 		local font_size = get_font_size()
+		local alpha = get_opacity_alpha()
 		text_style.font_size = font_size
+		if text_style.text_color then
+			text_style.text_color[1] = alpha
+		end
 		text_style.size = text_style.size or {
 			width - BORDER_PADDING * 2,
 			panel_height - BORDER_PADDING * 2,

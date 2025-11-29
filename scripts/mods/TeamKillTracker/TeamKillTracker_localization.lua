@@ -147,4 +147,8 @@ return {
 	        en = "Hide",
 	        ru = "Скрыть",
 	    },
+	    opacity = {
+	        en = "Opacity",
+	        ru = "Прозрачность",
+	    },
 }
