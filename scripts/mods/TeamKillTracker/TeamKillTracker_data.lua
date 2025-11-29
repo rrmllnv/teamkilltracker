@@ -106,6 +106,15 @@ return {
 				default_value = 16,
 				range = {15, 30},
 			},
+			{
+				setting_id = "show_background",
+				type = "dropdown",
+				default_value = 1,
+				options = {
+					{text = "show_background_show", value = 1},
+					{text = "show_background_hide", value = 2},
+				},
+			},
         },
 	},
 }

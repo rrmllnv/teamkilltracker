@@ -135,4 +135,16 @@ return {
 	        en = "Font size",
 	        ru = "Размер шрифта",
 	    },
+	    show_background = {
+	        en = "Show background",
+	        ru = "Показывать фон",
+	    },
+	    show_background_show = {
+	        en = "Show",
+	        ru = "Показать",
+	    },
+	    show_background_hide = {
+	        en = "Hide",
+	        ru = "Скрыть",
+	    },
 }
