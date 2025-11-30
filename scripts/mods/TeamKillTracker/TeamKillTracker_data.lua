@@ -21,14 +21,23 @@ return {
 				},
 			},
 			{
+				setting_id = "show_team_summary",
+				type = "dropdown",
+				default_value = 1,
+				options = {
+					{text = "show_team_summary_show", value = 1},
+					{text = "show_team_summary_hide", value = 2},
+				},
+			},
+			{
 				setting_id = "display_mode",
 				type = "dropdown",
 				default_value = 1,
 				options = {
-					{text = "display_mode_default", value = 1},
+					{text = "display_mode_all", value = 1},
 					{text = "display_mode_only_me", value = 2},
-					{text = "display_mode_team_only", value = 3},
 					{text = "display_mode_except_me", value = 4},
+					{text = "display_mode_hide_all", value = 3},
 				},
 			},
 			{

@@ -326,10 +326,11 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
 	local lines = {}
     local mode = mod.hud_counter_mode or mod:get("hud_counter_mode") or 1
     local display_mode = mod.display_mode or mod:get("display_mode") or 1
-    local show_team_summary = display_mode ~= 2
-    local show_user_lines = display_mode ~= 3
-    local show_only_local = display_mode == 2
-    local hide_local_line = display_mode == 4
+    local team_summary_setting = mod.show_team_summary or mod:get("show_team_summary") or 1
+    local show_team_summary = team_summary_setting == 1
+    local show_player_lines = display_mode ~= 3
+    local show_only_me = display_mode == 2
+    local exclude_me = display_mode == 4
     local kills_color = mod.get_kills_color_string()
     local damage_color = mod.get_damage_color_string()
     local last_damage_color = mod.get_last_damage_color_string()
@@ -351,13 +352,13 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
         end
     end
 
-    if show_user_lines and #players_with_kills > 0 then
+    if show_player_lines and #players_with_kills > 0 then
         for _, player in ipairs(players_with_kills) do
-            if show_only_local and (not local_account_id or player.account_id ~= local_account_id) then
+            if show_only_me and (not local_account_id or player.account_id ~= local_account_id) then
                 goto continue
             end
 
-            if hide_local_line and local_account_id and player.account_id == local_account_id then
+            if exclude_me and local_account_id and player.account_id == local_account_id then
                 goto continue
             end
 
@@ -380,6 +381,13 @@ HudElementPlayerStats.update = function(self, dt, t, ui_renderer, render_setting
             ::continue::
         end
     end
+
+	-- Скрываем виджет если нет строк для отображения
+	if #lines == 0 then
+		widget.content.visible = false
+		widget.content.text = ""
+		return
+	end
 
 	local panel_height = calculate_panel_height(#lines)
 
