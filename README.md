@@ -60,7 +60,8 @@ The mod uses the `AttackReportManager.add_attack_result` hook to track attack re
 
 The mod supports the following settings:
 - **HUD Counter Mode**: Choose what to display (Kills + Damage, Kills only, Damage only, etc.)
-- **Display Mode**: Control what players are shown (All / Only me / Team total / Everyone except me)
+- **Show TEAM KILLS line**: Toggle visibility of the team total line (Show / Hide)
+- **Player lines display**: Control what player lines are shown (All players / Only me / Everyone except me / Hide all players)
 - **Font Size**: Adjustable slider from 15 to 30 pixels (default: 16)
 - **Show Background**: Toggle background visibility (Show / Hide)
 - **Opacity**: Control transparency of the entire HUD element (0-100%, default: 100)
@@ -76,9 +77,10 @@ If you encounter problems:
 3. Restart the game after installation
 
 ## Versions
-1.8.0
+1.9.0
 
 ## Changelogs
+- 1.9.0 – separated TEAM KILLS line and player lines display controls: added independent "Show TEAM KILLS line" toggle, redesigned "Player lines display" setting with "Hide all players" option. HUD now fully hides when no lines are visible.
 - 1.8.0 – added font size slider (15-30), background visibility toggle, and opacity slider (0-100) for HUD element transparency.
 - 1.7.0 – added "everyone except me" display mode and expanded HUD color presets.
 - 1.6.1 – last-hit damage now rounds up to the nearest integer.
@@ -172,7 +174,8 @@ PlayerName4: 15 (4,321) [543]
 
 Мод поддерживает следующие настройки:
 - **Режим счетчика в HUD**: Выбор отображаемой информации (Убийства + Урон, Только убийства, Только урон и т.д.)
-- **Режим отображения**: Управление отображением игроков (Все / Только я / Только общий счёт / Все, кроме меня)
+- **Показывать строку TEAM KILLS**: Переключатель видимости строки общего счёта (Показать / Скрыть)
+- **Отображение строк игроков**: Управление отображением строк игроков (Все игроки / Только я / Все, кроме меня / Скрыть всех игроков)
 - **Размер шрифта**: Настраиваемый слайдер от 15 до 30 пикселей (по умолчанию: 16)
 - **Показывать фон**: Переключатель видимости фона (Показать / Скрыть)
 - **Прозрачность**: Управление прозрачностью всего HUD элемента (0-100%, по умолчанию: 100)
@@ -188,9 +191,10 @@ PlayerName4: 15 (4,321) [543]
 3. Перезапустите игру после установки
 
 ## Версии
-1.8.0
+1.9.0
 
 ## Журнал изменений
+- 1.9.0 — разделено управление строкой TEAM KILLS и строками игроков: добавлен независимый переключатель «Показывать строку TEAM KILLS», переработана настройка «Отображение строк игроков» с опцией «Скрыть всех игроков». HUD теперь полностью скрывается при отсутствии видимых строк.
 - 1.8.0 — добавлен слайдер размера шрифта (15-30), переключатель видимости фона и слайдер прозрачности (0-100) для HUD элемента.
 - 1.7.0 — добавлен режим отображения «все, кроме меня» и расширен набор цветовых пресетов HUD.
 - 1.6.1 — последний удар округляется вверх до ближайшего целого.
