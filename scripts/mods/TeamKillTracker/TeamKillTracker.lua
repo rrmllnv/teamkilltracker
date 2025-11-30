@@ -126,6 +126,7 @@ end
 mod.on_setting_changed = function()
     mod.display_mode = mod:get("display_mode") or 1
     mod.hud_counter_mode = mod:get("hud_counter_mode") or 1
+    mod.show_team_summary = mod:get("show_team_summary") or 1
     mod.kills_color = mod:get("kills_color") or "white"
     mod.damage_color = mod:get("damage_color") or "orange"
     mod.last_damage_color = mod:get("last_damage_color") or "orange"
